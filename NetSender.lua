@@ -15,6 +15,12 @@ while true do
 
     local cargoPlatform1 = stationp:getConnectedPlatform()
     local cargoPlatform2 = cargoPlatform1:getConnectedPlatform()  
+    local flow="Unload"
+    if(cargoPlatform1.isUnloading) then
+       flow="Unload"
+    else
+       flow="Load"
+    end
 
     local stationName=stationp.name
 
@@ -30,8 +36,8 @@ while true do
     local stationCargo=cargoPlatform1:getInventories()[1].itemCount+cargoPlatform2:getInventories()[1].itemCount
     local maxCargo=cargoPlatform1:getInventories()[1]:getStack(1).item.type.max*48*2
 
-    net:send(monitorComputer,portCursor+1,stationName,stationCargoName,stationCargo,stationLoading)
-    --print(portCursor+1,stationName,stationCargoName,stationCargo,maxCargo,stationLoading)
+    net:send(monitorComputer,portCursor+1,stationName,stationCargoName,stationCargo,stationLoading,maxCargo,flow)
+    --print(portCursor+1,stationName,stationCargoName,stationCargo,maxCargo,stationLoading,flow)
 
     portCursor = portCursor+1
   end
