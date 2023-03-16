@@ -15,7 +15,7 @@ while true do
 
     local cargoPlatform1 = stationp:getConnectedPlatform()
     local cargoPlatform2 = cargoPlatform1:getConnectedPlatform()  
-    local flow="Unload"
+    local flow=""
     if(cargoPlatform1.isUnloading) then
        flow="Unload"
     else
