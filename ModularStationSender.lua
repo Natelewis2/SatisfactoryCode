@@ -9,7 +9,7 @@ local startPort = 300
 local portCursor = startPort
 local factoryName="Rotor"
 
---local stations = component.findComponent("Station")
+--local stations = component.findComponent("Station") 
 
 local stations = component.findComponent(findClass("Build_TrainStation_C"))
 while true do
