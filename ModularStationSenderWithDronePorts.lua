@@ -1,3 +1,11 @@
+
+----CHANGE ON NEW BUILD----
+local startPort = 300
+local portCursor = startPort
+local factoryName="Rotor"
+-----------------------------------
+
+
 local net = computer.getPCIDevices(findClass("NetworkCard"))[1]
 local radarTower = component.proxy(component.findComponent(findClass("Build_RadarTower_C"))[1])
 
@@ -5,9 +13,7 @@ local locationX = math.floor(radarTower.location.x/100)
 local locationY = math.floor(radarTower.location.y/100)
 local locationZ = math.floor(radarTower.location.z/100)
 
-local startPort = 300
-local portCursor = startPort
-local factoryName="Rotor"
+
 
 --local stations = component.findComponent("Station")
 
@@ -17,6 +23,7 @@ local dronePorts = component.findComponent(findClass("Build_DroneStation_C"))
 
 while true do
   portCursor=startPort
+    --Station Identification on startPort, train stations start at port xxx01
     net:broadcast(portCursor,factoryName,locationX,locationY,locationZ)
     --print(portCursor,"Rotor",locationX,locationY,locationZ)
 
@@ -62,13 +69,20 @@ while true do
   end
 
   portCursor = startPort+50
-  --Process Drone Ports
+
+
+
+  --Process Drone Ports, Drones start at port xxx51
+  --No loading status, haven't figured this one out yet
   for _, dronePort in ipairs(dronePorts) do
     local dronePortp = component.proxy(dronePort)
     local dronePortCargoName=dronePortp:getInventories()[1]:getStack(1).item.type.name
     local dronePortCargo=dronePortp:getInventories()[1].itemCount
     local maxDronePortCargo=dronePortp:getInventories()[1]:getStack(1).item.type.max*18
+
+    --Broadcast Drone Status
     net:broadcast(portCursor+1,"",dronePortCargoName,dronePortCargo,"",maxDronePortCargo,"")
+    portCursor = portCursor+1
     --print(portCursor+1,"DronePort",dronePortCargoName,dronePortCargo,nil,maxDronePortCargo,nil)
   end
 
