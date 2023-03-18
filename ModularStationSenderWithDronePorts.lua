@@ -1,6 +1,6 @@
 
 ----CHANGE ON NEW BUILD----
-local startPort = 300
+local startPort = 1000
 local portCursor = startPort
 local factoryName="Rotor"
 -----------------------------------
@@ -81,9 +81,10 @@ while true do
     local maxDronePortCargo=dronePortp:getInventories()[1]:getStack(1).item.type.max*18
 
     --Broadcast Drone Status
-    net:broadcast(portCursor+1,"",dronePortCargoName,dronePortCargo,"",maxDronePortCargo,"")
+    net:broadcast(portCursor,"",dronePortCargoName,dronePortCargo,"",maxDronePortCargo,"")
+    
+    print(portCursor+1,"DronePort",dronePortCargoName,dronePortCargo,nil,maxDronePortCargo,nil)
     portCursor = portCursor+1
-    --print(portCursor+1,"DronePort",dronePortCargoName,dronePortCargo,nil,maxDronePortCargo,nil)
   end
 
 event.pull(1)
