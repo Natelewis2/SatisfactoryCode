@@ -67,10 +67,10 @@ while true do
     gpu:setForeground(1,1,1,1)
     if(inStations[item[1]]:getDockedLocomotive()) then
       gpu:setText(inputColumnX,cursor,item[3].." (LOADING)")
-      net:send(CentralComp,item[5],itemName,"Loading",1)
+      net:broadcast(item[5],itemName,"Loading",1)
     else
       gpu:setText(inputColumnX,cursor,item[3])
-      net:send(CentralComp,item[5],itemName,"Loading",0)
+      net:broadcast(item[5],itemName,"Loading",0)
     end
 
     local itemName=item[1]
@@ -92,7 +92,7 @@ while true do
     end
     gpu:setText(inputColumnX+2,cursor+1,"Input Buffer: "..itemCount)
 
-    net:send(CentralComp,item[4],itemName,"InputBuffer",itemCount)
+    net:broadcast(item[4],itemName,"InputBuffer",itemCount)
     --print(item[4],itemName,itemCount)
 
     cursor=cursor+1
@@ -110,7 +110,7 @@ while true do
     end
     gpu:setText(inputColumnX+2,cursor+1,"Station: "..stationInventory)
 
-    net:send(CentralComp,(item[4]+1),itemName,"Station",stationInventory)
+    net:broadcast((item[4]+1),itemName,"Station",stationInventory)
     --print(item[4]+1,itemName,itemCount)
     cursor = cursor+3
   end
@@ -125,10 +125,10 @@ while true do
     gpu:setForeground(1,1,1,1)
     if(outStations[item[1]]:getDockedLocomotive()) then
       gpu:setText(outputColumnX,cursor,item[3].." (LOADING)")
-      net:send(CentralComp,item[5],itemName,"Loading",1)
+      net:broadcast(item[5],itemName,"Loading",1)
     else
       gpu:setText(outputColumnX,cursor,item[3])
-      net:send(CentralComp,item[5],itemName,"Loading",0)
+      net:broadcast(item[5],itemName,"Loading",0)
     end
 
     local itemName=item[1]
@@ -148,7 +148,7 @@ while true do
       gpu:setForeground(255,0,0,1)
     end
     gpu:setText(outputColumnX+2,cursor+1,"Output Buffer: "..itemCount)
-    net:send(CentralComp,item[4],itemName,"OutputBuffer",itemCount)
+    net:broadcast(item[4],itemName,"OutputBuffer",itemCount)
 
 
     cursor=cursor+1
@@ -165,7 +165,7 @@ while true do
       gpu:setForeground(255,0,0,1)
     end
     gpu:setText(outputColumnX+2,cursor+1,"Station: "..stationInventory)
-    net:send(CentralComp,(item[4]+1),itemName,"Station",stationInventory)
+    net:broadcast((item[4]+1),itemName,"Station",stationInventory)
 
     cursor = cursor+3
   end
