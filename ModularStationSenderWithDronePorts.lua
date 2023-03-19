@@ -2,7 +2,8 @@
 ----CHANGE ON NEW BUILD----
 local startPort = 1000
 local portCursor = startPort
-local factoryName="Rotor"
+local factoryName="PlasticRubber2"
+local debug=true
 -----------------------------------
 
 
@@ -24,8 +25,10 @@ local dronePorts = component.findComponent(findClass("Build_DroneStation_C"))
 while true do
   portCursor=startPort
     --Station Identification on startPort, train stations start at port xxx01
-    net:broadcast(portCursor,factoryName,locationX,locationY,locationZ)
-    --print(portCursor,"Rotor",locationX,locationY,locationZ)
+    net:broadcast(portCursor,factoryName,locationX,locationY,locationZ,"ID","ID")
+    if(debug) then
+      print(portCursor,factoryName,locationX,locationY,locationZ,"ID","ID")
+    end
 
   --Process train stations
   for _, station in ipairs(stations) do
@@ -62,13 +65,15 @@ while true do
 
     --Broadcast Status
     net:broadcast(portCursor+1,stationName,stationCargoName,stationCargo,stationLoading,maxCargo,flow)
-    --print(portCursor+1,stationName,stationCargoName,stationCargo,maxCargo,stationLoading,flow)
+    if(debug) then
+      print(portCursor+1,stationName,stationCargoName,stationCargo,maxCargo,stationLoading,flow)
+    end
 
     --Increment port for next station
     portCursor = portCursor+1
   end
 
-  portCursor = startPort+50
+  portCursor = startPort+51
 
 
 
@@ -81,9 +86,10 @@ while true do
     local maxDronePortCargo=dronePortp:getInventories()[1]:getStack(1).item.type.max*18
 
     --Broadcast Drone Status
-    net:broadcast(portCursor,"",dronePortCargoName,dronePortCargo,"",maxDronePortCargo,"")
-    
-    print(portCursor+1,"DronePort",dronePortCargoName,dronePortCargo,nil,maxDronePortCargo,nil)
+    net:broadcast(portCursor,"DRONE",dronePortCargoName,dronePortCargo,"DRONE",maxDronePortCargo,"DRONE")
+    if(debug) then
+      print(portCursor,"DRONE",dronePortCargoName,dronePortCargo,"DRONE",maxDronePortCargo,"DRONE")
+    end
     portCursor = portCursor+1
   end
 
