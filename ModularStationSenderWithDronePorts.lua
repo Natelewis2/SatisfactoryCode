@@ -1,11 +1,11 @@
 
 ----CHANGE ON NEW BUILD----
-local startPort = 1000
-local portCursor = startPort
-local factoryName="PlasticRubber2"
+local startPort = 1200
+local factoryName="Battery"
 local debug=false
 -----------------------------------
 
+local portCursor = startPort
 
 local net = computer.getPCIDevices(findClass("NetworkCard"))[1]
 local radarTower = component.proxy(component.findComponent(findClass("Build_RadarTower_C"))[1])
