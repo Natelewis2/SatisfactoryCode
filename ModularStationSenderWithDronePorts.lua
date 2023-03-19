@@ -1,11 +1,12 @@
 
 ----CHANGE ON NEW BUILD----
-local startPort = 1200
-local factoryName="Battery"
+local startPort = 900
+local factoryName="ComputerCrystalOsc"
 local debug=false
 -----------------------------------
 
 local portCursor = startPort
+
 
 local net = computer.getPCIDevices(findClass("NetworkCard"))[1]
 local radarTower = component.proxy(component.findComponent(findClass("Build_RadarTower_C"))[1])
@@ -63,10 +64,11 @@ while true do
     local stationCargo=cargoPlatform1:getInventories()[1].itemCount+cargoPlatform2:getInventories()[1].itemCount
     local maxCargo=cargoPlatform1:getInventories()[1]:getStack(1).item.type.max*48*2
 
+
     --Broadcast Status
     net:broadcast(portCursor+1,stationName,stationCargoName,stationCargo,stationLoading,maxCargo,flow)
     if(debug) then
-      print(portCursor+1,stationName,stationCargoName,stationCargo,maxCargo,stationLoading,flow)
+      print(portCursor+1,stationName,stationCargoName,stationCargo,stationLoading,maxCargo,flow)
     end
 
     --Increment port for next station
@@ -81,9 +83,15 @@ while true do
   --No loading status, haven't figured this one out yet
   for _, dronePort in ipairs(dronePorts) do
     local dronePortp = component.proxy(dronePort)
-    local dronePortCargoName=dronePortp:getInventories()[1]:getStack(1).item.type.name
     local dronePortCargo=dronePortp:getInventories()[1].itemCount
-    local maxDronePortCargo=dronePortp:getInventories()[1]:getStack(1).item.type.max*18
+
+    --if(pcall(dronePortp:getInventories()[1]:getStack(1))==true) then
+      local dronePortCargoName=factoryName
+      local maxDronePortCargo=3600
+    --else
+      --local dronePortCargoName="UNK"
+      --local maxDronePortCargo="UNK"
+    --end
 
     --Broadcast Drone Status
     net:broadcast(portCursor,"DRONE",dronePortCargoName,dronePortCargo,"DRONE",maxDronePortCargo,"DRONE")
@@ -92,6 +100,5 @@ while true do
     end
     portCursor = portCursor+1
   end
-
-event.pull(1)
+event.pull(.5)
 end
