@@ -3,7 +3,7 @@
 local startPort = 1000
 local portCursor = startPort
 local factoryName="PlasticRubber2"
-local debug=true
+local debug=false
 -----------------------------------
 
 
